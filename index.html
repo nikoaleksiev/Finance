@@ -10,11 +10,56 @@
             box-sizing: border-box;
         }
 
-        body {
-            font: 16px Arial;
-            background-color: #92a8d1;
-            
-        }
+$color-1: #000;
+$color-2: #FFF;
+$color-3: #3498db;
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+body {
+  background: $color-1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  transition: 0.5s all ease;
+}
+
+.theme-switch {
+  color: $color-2;
+  width: 70px;
+  height: 30px;
+  background: $color-3;
+  border-radius: 50px;
+  position: absolute;
+
+  .switch {
+    background: white;
+    width: 24px;
+    height: 24px;
+    background: $color-2;
+    border-radius: 100%;
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    transition: 0.5s all ease;
+  }
+}
+
+.light-theme {
+  background: $color-2;
+
+  .theme-switch {
+    background: $color-1;
+
+    .switch {
+      transform: translateX(37px);
+    }
+  }
+  a {
+    color: $color-1; 
+  }
+}
 
         .autocomplete {
             position: relative;
@@ -74,7 +119,10 @@
 </head>
 
 <body>
-
+    
+    <div class="theme-switch">
+        <div class="switch"></div>
+            </div>
     <h2>Финанси</h2>
     <p>
 Участници: &#x1F60E; &#x1F60E; &#x1F60E;
@@ -98,6 +146,9 @@
     </form>
 
     <script>
+        $(".theme-switch").on("click", () => {
+  $("body").toggleClass("light-theme");
+});
         function autocomplete(inp, arr) {
             var currentFocus;
             inp.addEventListener("input", function(e) {
