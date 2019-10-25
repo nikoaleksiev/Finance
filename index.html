@@ -9,57 +9,103 @@
         * {
             box-sizing: border-box;
         }
-
-$color-1: #000;
-$color-2: #FFF;
-$color-3: #3498db;
-@import url('https://fonts.googleapis.com/css?family=Raleway');
+        :root {
+  --pinkcolor: #FF1EAD;
+}
 
 body {
-  background: $color-1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
+  font-size: 15pt;
   transition: 0.5s all ease;
 }
 
-.theme-switch {
-  color: $color-2;
-  width: 70px;
-  height: 30px;
-  background: $color-3;
-  border-radius: 50px;
+a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: black;
+  position: relative;
+}
+
+a::before {
+  content: "";
+  width: 100%;
+  height: 3px;
   position: absolute;
-
-  .switch {
-    background: white;
-    width: 24px;
-    height: 24px;
-    background: $color-2;
-    border-radius: 100%;
-    position: absolute;
-    top: 3px;
-    left: 4px;
-    transition: 0.5s all ease;
-  }
+  background-color: var(--pinkcolor);
+  bottom: -2px;
+  transform: translateX(-100%);
+  opacity: 0;
 }
 
-.light-theme {
-  background: $color-2;
-
-  .theme-switch {
-    background: $color-1;
-
-    .switch {
-      transform: translateX(37px);
-    }
-  }
-  a {
-    color: $color-1; 
-  }
+a:visited {
+  color: black;
 }
+
+a:hover::before {
+  transition: 0.5s transform ease, 0.8s opacity ease;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.theme {
+  width: 60px;
+  height: 30px;
+  background-color: black;
+  margin-right: 30px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  
+}
+
+.switch {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border-radius: 12px;
+  transform: translateX(32px);
+  transition: 0.5s transform ease;
+}
+
+/* .theme > .switch:hover {
+   transition: 0.5s all ease;
+  background-color: blue;
+    transform: translateX(0); 
+   transform: translateX(4px);
+} */
+
+.dark-theme .selected,
+.selected {
+  color:var(--pinkcolor);
+}
+
+.selected:hover::before {
+  opacity: 0;
+}
+  
+.dark-theme {
+  background-color: black;
+}
+
+.dark-theme .theme {
+  background-color: var(--pinkcolor);
+}
+
+.dark-theme .switch {
+  transform: translateX(4px);
+}
+
+.dark-theme a {
+  color: white;
+}
+
+
 
         .autocomplete {
             position: relative;
@@ -120,7 +166,7 @@ body {
 
 <body>
     
-    <div class="theme-switch">
+    <div class="theme" onclick="setTheme()">
         <div class="switch"></div>
             </div>
     <h2>Финанси</h2>
@@ -146,9 +192,25 @@ body {
     </form>
 
     <script>
-        $(".theme-switch").on("click", () => {
-  $("body").toggleClass("light-theme");
-});
+function setTheme() {
+  const element = document.getElementsByClassName("theme")[0];
+   const body = document.body;
+  
+  if (element.classList.length === 1) {
+    element.classList.add("dark-theme");
+   body.classList.add("dark-theme");
+    console.log(body);
+    console.log("zero");
+   
+  } else {
+     element.classList.remove("dark-theme");
+    body.classList.remove("dark-theme");
+    // console.log(element.classList);
+    console.log("some");
+    
+  }
+
+}
         function autocomplete(inp, arr) {
             var currentFocus;
             inp.addEventListener("input", function(e) {
